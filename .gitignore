@@ -1,0 +1,28 @@
+# Ignore _build directory created by Dune
+_build/
+
+# Ignore .merlin file created by Dune (for Merlin editor support)
+.merlin
+
+# Ignore editor backup files
+*.swp
+*.swo
+*~
+
+# Ignore local opam switch files if any (only if you're using local switches)
+.opam/
+
+# Ignore dune's lock file if you want (optional)
+dune.lock
+
+# Ignore executable binaries (if you output manually compiled binaries)
+*.exe
+
+# Ignore compiled artifacts
+*.cm*
+*.o
+*.a
+
+# Ignore generated documentation
+_doc/
+

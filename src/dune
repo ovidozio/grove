@@ -1,0 +1,9 @@
+(library
+ (name grove)
+ (modules ast lexer parser layout svg))
+
+(executable
+ (name main)
+ (modules main)
+ (libraries grove))
+
