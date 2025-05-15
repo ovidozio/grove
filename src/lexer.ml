@@ -1,7 +1,9 @@
 (* lexer.ml *)
+
 type token =
   | ID of string
   | LABEL of string
+  | GROUP of string
   | NUMBER of int
   | LPAREN
   | RPAREN
@@ -56,6 +58,15 @@ let tokenize input =
       read_label (i + 1) (acc ^ String.make 1 input.[i])
   in
 
+  let rec read_group i acc =
+    if i >= len then
+      raise (LexError "Unterminated group (missing closing brace)")
+    else if input.[i] = '}' then
+      (GROUP acc, i + 1)
+    else
+      read_group (i + 1) (acc ^ String.make 1 input.[i])
+  in
+
   let rec aux i tokens =
     if i >= len then
       List.rev (EOF :: tokens)
@@ -72,6 +83,9 @@ let tokenize input =
         | '"' ->
             let (label, j) = read_label (i + 1) "" in
             aux j (label :: tokens)
+        | '{' ->
+            let (group, j) = read_group (i + 1) "" in
+            aux j (group :: tokens)
         | '0'..'9' ->
             let (number, j) = read_number i "" in
             aux j (number :: tokens)
